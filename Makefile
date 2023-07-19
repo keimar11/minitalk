@@ -1,24 +1,29 @@
-NAME = minitalk.a
+NAME1 = server
+NAME2 = client
 PRTFDIR = ft_printf/
 PRTF = ft_printf/libftprintf.a
-SRCS = server.c client.c
-OBJS = $(SRCS:.c=)
+SRC1 = server.c 
+SRC2 = client.c
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 
-all: 
+all: $(NAME1) $(NAME2)
+
+$(NAME1): $(SRC1)
 	make -C $(PRTFDIR)
-	$(CC) $(CFLAGS) server.c $(PRTF) -o server
-	$(CC) $(CFLAGS) client.c $(PRTF) -o client
+	$(CC) $(CFLAGS) $? $(PRTF) -o $@
+
+$(NAME2): $(SRC2)
+	make -C $(PRTFDIR)
+	$(CC) $(CFLAGS) $? $(PRTF) -o $@
 
 clean:
 	make clean -C $(PRTFDIR)
-	rm -f $(OBJS)
 
 fclean: clean
 	make fclean -C $(PRTFDIR)
-	rm -f $(NAME)
+	rm $(NAME1) $(NAME2)
 
 re: fclean all
 

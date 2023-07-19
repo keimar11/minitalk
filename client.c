@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: keitakah <keitakah@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/19 13:32:38 by keitakah          #+#    #+#             */
+/*   Updated: 2023/07/19 13:32:38 by keitakah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <signal.h>
 #include "./ft_printf/libftprintf.h"
@@ -8,7 +20,7 @@ void	send_char(const pid_t pid, char c)
 	int	digit;
 
 	digit = 7;
-	while(digit >= 0)
+	while (digit >= 0)
 	{
 		if (c & (1 << digit))
 			kill(pid, SIGUSR1);
@@ -37,7 +49,7 @@ int	main(int argc, char *argv[])
 	{
 		ft_printf("Please try again.\n");
 		ft_printf("./client <pid_number> <message>\n");
-		return(1);
+		return (1);
 	}
 	pid = ft_atoi(argv[1]);
 	send_str(pid, argv[2]);
