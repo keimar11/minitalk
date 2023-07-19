@@ -17,7 +17,7 @@ $(NAME): $(OBJECTS)
 	$(AR) -r $@ $?
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $?
+	$(CC) $(CFLAGS) -c $?
 
 clean:
 	rm -f $(OBJECTS)

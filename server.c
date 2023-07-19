@@ -39,5 +39,4 @@ int	main(void)
 	}
 }
 
-
 // pid_t: intと同義
