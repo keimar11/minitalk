@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cui <marvin@42.fr>                         +#+  +:+       +#+         #
+#    By: keitakah <keitakah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/22 11:06:10 by cui               #+#    #+#              #
-#    Updated: 2022/12/22 11:06:17 by cui              ###   ########.fr        #
+#    Updated: 2023/07/19 15:40:44 by keitakah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,7 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	make fclean -C $(LIBDIR)
-	rm -f $(NAME)
+	rm -f $(NAME) $(LIBFT)
 
 re: fclean all
 

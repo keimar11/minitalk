@@ -1,30 +1,41 @@
 NAME1 = server
 NAME2 = client
-PRTFDIR = ft_printf/
+
 PRTF = ft_printf/libftprintf.a
-SRC1 = server.c 
+LIBFT = ft_printf/libft/libft.a
+
+SRC1 = server.c
 SRC2 = client.c
+
+PRTFDIR = ft_printf/
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+IF = -I$(INC_DIR)
+INC_DIR = include/
 
 
 all: $(NAME1) $(NAME2)
 
-$(NAME1): $(SRC1)
-	make -C $(PRTFDIR)
-	$(CC) $(CFLAGS) $? $(PRTF) -o $@
+$(NAME1): $(SRC1) $(PRTF)
+	$(CC) $(CFLAGS) $(IF) $? $(PRTF) -o $@
 
-$(NAME2): $(SRC2)
+$(NAME2): $(SRC2) $(PRTF)
+	$(CC) $(CFLAGS) $(IF) $? $(PRTF) -o $@
+
+$(PRTF):
 	make -C $(PRTFDIR)
-	$(CC) $(CFLAGS) $? $(PRTF) -o $@
 
 clean:
 	make clean -C $(PRTFDIR)
 
 fclean: clean
-	make fclean -C $(PRTFDIR)
-	rm $(NAME1) $(NAME2)
+	rm $(NAME1) $(NAME2) $(PRTF) $(LIBFT)
 
 re: fclean all
 
 .PHONY: all clean fclean re
+
+
+#cc -I[dir_name]: cファイル内で、ヘッダファイルをパス指定なしで参照してくれる。[dir_name]にヘッダファイルが入っているから。
+#
