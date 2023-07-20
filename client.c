@@ -27,16 +27,17 @@ static void	send_char(const pid_t pid, char c)
 	{
 		if (c & (1 << digit))
 		{
-			if(kill(pid, SIGUSR1) == -1)
+			if (kill(pid, SIGUSR1) == -1)
 				error();
 		}
 		else
 		{
-			if(kill(pid, SIGUSR2) == -1) 
+			if (kill(pid, SIGUSR2) == -1)
 				error();
 		}
 		digit--;
-		if(usleep(100) == -1) error();
+		if (usleep(100) == -1)
+			error();
 	}
 }
 

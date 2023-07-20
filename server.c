@@ -22,7 +22,8 @@ void	error(void)
 
 static void	output(void)
 {
-	if(write(1, &g_char, 1) == -1) error();
+	if (write(1, &g_char, 1) == -1)
+		error();
 	g_char = 0;
 }
 
@@ -42,8 +43,10 @@ int	main(void)
 	int	n;
 
 	ft_printf("Server pid: %d\n", getpid());
-	if (signal(SIGUSR1, signal_handler) == SIG_ERR) error();
-	if (signal(SIGUSR2, signal_handler) == SIG_ERR) error();
+	if (signal(SIGUSR1, signal_handler) == SIG_ERR)
+		error();
+	if (signal(SIGUSR2, signal_handler) == SIG_ERR)
+		error();
 	while (1)
 	{
 		n = 0;
