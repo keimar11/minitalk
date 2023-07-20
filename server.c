@@ -10,26 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
-#include "ft_printf/libftprintf.h"
-#include "ft_printf/libft/libft.h"
+#include "minitalk.h"
 
 int	g_char = 0;
 
-void	output(void)
+void	error(void)
 {
-	write(1, &g_char, 1);
+	ft_printf("Program was failed.\n");
+	exit(1);
+}
+
+static void	output(void)
+{
+	if(write(1, &g_char, 1) == -1) error();
 	g_char = 0;
 }
 
-void	signal_handler(int signum)
+static void	signal_handler(int signum)
 {
 	g_char = g_char << 1;
 	if (signum == SIGUSR1)
 		g_char |= 1;
 	else if (signum == SIGUSR2)
 		;
+	else
+		error();
 }
 
 int	main(void)
@@ -37,8 +42,8 @@ int	main(void)
 	int	n;
 
 	ft_printf("Server pid: %d\n", getpid());
-	signal(SIGUSR1, signal_handler);
-	signal(SIGUSR2, signal_handler);
+	if (signal(SIGUSR1, signal_handler) == SIG_ERR) error();
+	if (signal(SIGUSR2, signal_handler) == SIG_ERR) error();
 	while (1)
 	{
 		n = 0;
@@ -52,3 +57,15 @@ int	main(void)
 }
 
 // pid_t: intと同義
+/*if error happens in functions 
+write	-1
+getpid	no return >> wrong with %d in ft_printf
+signal	SIG_ERR
+pause	always returns -1(no error)
+
+ft_printf	no deal
+error	no deal
+output	error()
+signal_handler	error()
+main	error()
+*/

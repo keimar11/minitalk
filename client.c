@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
-#include "./ft_printf/libftprintf.h"
-#include "./ft_printf/libft/libft.h"
+#include "minitalk.h"
 
-void	send_char(const pid_t pid, char c)
+void	error(void)
+{
+	ft_printf("Program was failed.\n");
+	exit(1);
+}
+
+static void	send_char(const pid_t pid, char c)
 {
 	int	digit;
 
@@ -23,15 +26,21 @@ void	send_char(const pid_t pid, char c)
 	while (digit >= 0)
 	{
 		if (c & (1 << digit))
-			kill(pid, SIGUSR1);
+		{
+			if(kill(pid, SIGUSR1) == -1)
+				error();
+		}
 		else
-			kill(pid, SIGUSR2);
+		{
+			if(kill(pid, SIGUSR2) == -1) 
+				error();
+		}
 		digit--;
-		usleep(100);
+		if(usleep(100) == -1) error();
 	}
 }
 
-void	send_str(const pid_t pid, char *str)
+static void	send_str(const pid_t pid, char *str)
 {
 	while (*str)
 	{
@@ -57,3 +66,14 @@ int	main(int argc, char *argv[])
 
 // argv[1]= "server PID"
 // argv[2]= "strings"
+
+/*if error happans in function
+kill	-1
+usleep	-1
+
+ft_printf	no deal
+ft_atoi	?
+send_str	error()
+send_char	error()
+main
+*/

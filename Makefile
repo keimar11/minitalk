@@ -18,10 +18,10 @@ INC_DIR = include/
 all: $(NAME1) $(NAME2)
 
 $(NAME1): $(SRC1) $(PRTF)
-	$(CC) $(CFLAGS) $(IF) $? $(PRTF) -o $@
+	$(CC) $(CFLAGS) $(IF) $? -o $@
 
 $(NAME2): $(SRC2) $(PRTF)
-	$(CC) $(CFLAGS) $(IF) $? $(PRTF) -o $@
+	$(CC) $(CFLAGS) $(IF) $? -o $@
 
 $(PRTF):
 	make -C $(PRTFDIR)
